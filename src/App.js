@@ -11,18 +11,21 @@ class App extends Component {
   constructor(){
     super();
 
-    this.state ={
-      monsters: []        
+    this.state = {
+      monsters: [],
+      users: []        
     }
 
   }
 
+  // Component Did Mount runs the very first time the component mounts. Meaning if I want something like, data from an api, to display on my page
+  // I can place the functionality under this method and it will run. 
   componentDidMount(){
      
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => response.json())
     .then(users => this.setState(() => {
-      return {monsters: users}
+      return {monsters: users, staticMonsters: users}
     },
     () => {
       console.log(this.state)
@@ -35,6 +38,20 @@ class App extends Component {
     
     return (
       <div className="App">
+        <input className='searchBox' type='search' placeholder='Search Monsters...' onChange={(event) => {
+          console.log(event.target.value);
+          let updatedMonsters = []
+          this.state.staticMonsters.forEach(monster => {
+            let slice = monster.name.slice(0, event.target.value.length)            
+           
+            if(slice.toLowerCase() === event.target.value.toLowerCase()){
+              console.log(monster)
+              updatedMonsters.push(monster)
+            }
+            this.setState({monsters: updatedMonsters})
+          })
+
+        }}></input>
    
         {
           this.state.monsters.map((monster) => {
