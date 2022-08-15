@@ -12,8 +12,24 @@ class App extends Component {
     super();
 
     this.state ={
-        name: {firstName: 'Jordan', lastName: 'Wright'},
-        company: 'JWProductions'
+      monsters: [
+        {
+          firstName: 'Bob',
+          lastName: 'Builder',
+          id: '123lkjmzio1'
+        },
+        {
+          firstName: 'Big',
+          lastName: 'Bird',
+          id: '123098amziwe'
+        },
+        {
+          firstName: 'Victor',
+          lastName: 'Vran',
+          id: '0930982jla'
+        }
+      ]
+        
     }
   }
 
@@ -21,15 +37,13 @@ class App extends Component {
     
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hello, my name is {this.state.name.firstName} {this.state.name.lastName}. I work at {this.state.company}
-          </p>
-          <button onClick={ () => {
-            this.setState({name: {firstName:'Darth', lastName:'Vader'}})
-            }}>Click Me</button>
-        </header>
+   
+        {
+          this.state.monsters.map((monster) => {
+            return <h1 key={monster.id}>{monster.firstName} {monster.lastName}</h1>
+          })
+        }
+
       </div>
     );
   }
