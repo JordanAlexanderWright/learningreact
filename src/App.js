@@ -13,7 +13,7 @@ class App extends Component {
 
     this.state = {
       monsters: [],
-      users: []        
+      searchField: ''       
     }
 
   }
@@ -25,7 +25,7 @@ class App extends Component {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => response.json())
     .then(users => this.setState(() => {
-      return {monsters: users, staticMonsters: users}
+      return {monsters: users}
     },
     () => {
       console.log(this.state)
@@ -34,27 +34,41 @@ class App extends Component {
 
   }
 
+  returnMonsters() {
+
+    let monsterList = []
+    this.state.monsters.forEach(monster => {
+  
+      let slice = monster.name.slice(0, this.state.searchField.length)           
+      if(slice.toLowerCase() === this.state.searchField.toLowerCase()){
+        monsterList.push(monster)
+      }
+    })
+
+    return monsterList
+
+}
+
   render() {
+
+    let filteredMonsters = this.returnMonsters()
+  
     
     return (
       <div className="App">
-        <input className='searchBox' type='search' placeholder='Search Monsters...' onChange={(event) => {
-          console.log(event.target.value);
-          let updatedMonsters = []
-          this.state.staticMonsters.forEach(monster => {
-            let slice = monster.name.slice(0, event.target.value.length)            
-           
-            if(slice.toLowerCase() === event.target.value.toLowerCase()){
-              console.log(monster)
-              updatedMonsters.push(monster)
-            }
-            this.setState({monsters: updatedMonsters})
-          })
+        <input className='searchBox'
+        type='search' 
+        placeholder='Search Monsters...' 
+        onChange={(event) => {
+        
+         this.setState(() => {
+          return {searchField:event.target.value}
+         })         
 
         }}></input>
    
         {
-          this.state.monsters.map((monster) => {
+         filteredMonsters.map((monster) => {
             return <h1 key={monster.id}>{monster.name}</h1>
           })
         }
