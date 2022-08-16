@@ -1,5 +1,6 @@
 // Converting to a class component
 import {Component} from 'react'
+import {CardList} from '/projects/fewdprojects/monstersrolodex/src/card-list.component.jsx'
 import logo from './logo.svg';
 import './App.css';
 
@@ -34,7 +35,7 @@ class App extends Component {
 
   }
 
-  returnMonsters() {
+  returnMonsters = () => {
 
     let monsterList = []
     this.state.monsters.forEach(monster => {
@@ -46,32 +47,32 @@ class App extends Component {
     })
 
     return monsterList
-
 }
+
+  onSearchChange = (event) => {
+    this.setState({searchField: event.target.value})
+  }
 
   render() {
 
-    let filteredMonsters = this.returnMonsters()
-  
+
+    const {onSearchChange, returnMonsters} = this;
+    let filteredMonsters = returnMonsters()
     
     return (
       <div className="App">
         <input className='searchBox'
         type='search' 
         placeholder='Search Monsters...' 
-        onChange={(event) => {
-        
-         this.setState(() => {
-          return {searchField:event.target.value}
-         })         
-
-        }}></input>
+        onChange={onSearchChange}></input>
    
         {
          filteredMonsters.map((monster) => {
             return <h1 key={monster.id}>{monster.name}</h1>
           })
         }
+
+        <CardList />
 
       </div>
     );
