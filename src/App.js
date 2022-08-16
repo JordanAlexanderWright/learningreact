@@ -1,6 +1,6 @@
 // Converting to a class component
 import {Component} from 'react'
-import {CardList} from '/projects/fewdprojects/monstersrolodex/src/card-list.component.jsx'
+import CardList from './components/card-list/CardList.jsx'
 import logo from './logo.svg';
 import './App.css';
 
@@ -27,11 +27,8 @@ class App extends Component {
     .then(response => response.json())
     .then(users => this.setState(() => {
       return {monsters: users}
-    },
-    () => {
-      console.log(this.state)
-    }
-    ));
+    })
+    );
 
   }
 
@@ -61,18 +58,16 @@ class App extends Component {
     
     return (
       <div className="App">
+
         <input className='searchBox'
         type='search' 
         placeholder='Search Monsters...' 
-        onChange={onSearchChange}></input>
-   
-        {
-         filteredMonsters.map((monster) => {
-            return <h1 key={monster.id}>{monster.name}</h1>
-          })
-        }
+        onChange={onSearchChange}>          
+        </input>
 
-        <CardList />
+ 
+        <CardList userList={filteredMonsters} somethingelse={'hello'}/>
+   
 
       </div>
     );
