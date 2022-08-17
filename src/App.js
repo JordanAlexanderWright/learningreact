@@ -4,6 +4,7 @@ import CardList from './components/card-list/CardList.jsx'
 import SearchBox from './components/search-box/SearchBox.jsx'
 import logo from './logo.svg';
 import './App.css';
+// import './components/search-box/SearchBox.styles.css'
 
 //This has the same functionality as before, but it was converte to a class
 // COmponent already has the render() method, and it palces what I want to render inside of it. The JSX. 
@@ -58,11 +59,9 @@ class App extends Component {
     
     return (
       <div className="App">      
-
-        <SearchBox placeHolder={'Search Monsters...'} onChangeHandler={onSearchChange} className ='monsterSearch'/>
+        <h1>Monsters Rolodex</h1>
+        <SearchBox placeHolder={'Search Monsters...'} onChangeHandler={onSearchChange} className ='monstersSearchBox'/>
         <CardList userList={filteredMonsters} somethingelse={'hello'}/>
-   
-
       </div>
     );
   }
