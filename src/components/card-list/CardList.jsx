@@ -1,19 +1,17 @@
 import { Component } from "react";
-import monsterImage from 'C:/projects/fewdprojects/monstersrolodex/src/assets/blastoise.png'
+import './card.styles.css'
+import './card-container.styles.css'
 
 class CardList extends Component {
   render() {
-    let userList = [];
-    try {
-      userList = this.props.userList;
-    } catch {}
+    let userList = this.props.userList;
 
     return (
-      <div className='cardContainer'>
+      <div className={`card-container ${this.props.className}`}>
         {userList.map((user) => {
           return (
           <div key={user.id} className='card'>
-                <img src={monsterImage} alt='monster'></img>
+                <img src={`https://robohash.org/${user.name}.png ?set=set4`} alt={`monster ${user.name}`}></img>
                 <h2 >{user.name}</h2>
           </div>
           )            
