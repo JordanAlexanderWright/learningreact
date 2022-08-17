@@ -5,14 +5,17 @@ import './card-container.styles.css'
 class CardList extends Component {
   render() {
     let userList = this.props.userList;
+   
 
     return (
       <div className={`card-container ${this.props.className}`}>
         {userList.map((user) => {
+             let {name, id, email} = user;
           return (
-          <div key={user.id} className='card'>
-                <img src={`https://robohash.org/${user.name}.png ?set=set4`} alt={`monster ${user.name}`}></img>
-                <h2 >{user.name}</h2>
+          <div key={id} className='card'>
+                <img src={`https://robohash.org/${name}.png?set=set4&size=180x180`} alt={`monster ${name}`}></img>
+                <h2 >{name}</h2>
+                <p>{email}</p>
           </div>
           )            
         })}

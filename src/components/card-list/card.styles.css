@@ -1,0 +1,26 @@
+.card {
+    display:flex;
+    flex-direction: column;
+    background-color: lightblue;
+    border: 1px solid black;
+    justify-content: space-evenly;  
+    align-items: center;
+    margin-top: 25px;
+    flex-basis: 20%;
+    cursor:pointer;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    transition: transform .25s ease-out;
+  }
+
+  
+.card:hover{
+    transform: scale(1.05);
+  }
+
+.card img{
+    padding-top: 20px;
+}
+.card p{
+    font-size: 1.1em;
+}

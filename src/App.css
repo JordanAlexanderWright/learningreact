@@ -19,36 +19,11 @@ body {
 }
 
 
-.card {
-  display:flex;
-  flex-direction: column;
-  background-color: lightblue;
-  border: 1px solid black;
-  justify-content: space-evenly;  
-  align-items: center;
-  margin-top: 25px;
-  flex-basis: 20%;
-  cursor:pointer;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translateZ(0);
-  transition: transform .25s ease-out;
-}
-
 .card:hover{
   transform: scale(1.05);
 }
 
-.cardContainer{
-  width: 85vw;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
-}
-
-
-
-img {
+/* img {
   max-width:100px;
   max-height: 100px;
-}
+} */
