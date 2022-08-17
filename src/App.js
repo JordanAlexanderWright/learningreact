@@ -1,6 +1,7 @@
 // Converting to a class component
 import {Component} from 'react'
 import CardList from './components/card-list/CardList.jsx'
+import SearchBox from './components/search-box/SearchBox.jsx'
 import logo from './logo.svg';
 import './App.css';
 
@@ -32,6 +33,10 @@ class App extends Component {
 
   }
 
+  onSearchChange = (event) => {
+    this.setState({ searchField: event.target.value });
+  };
+
   returnMonsters = () => {
 
     let monsterList = []
@@ -46,26 +51,15 @@ class App extends Component {
     return monsterList
 }
 
-  onSearchChange = (event) => {
-    this.setState({searchField: event.target.value})
-  }
 
   render() {
-
-
-    const {onSearchChange, returnMonsters} = this;
+    const {returnMonsters, onSearchChange} = this;
     let filteredMonsters = returnMonsters()
     
     return (
-      <div className="App">
+      <div className="App">      
 
-        <input className='searchBox'
-        type='search' 
-        placeholder='Search Monsters...' 
-        onChange={onSearchChange}>          
-        </input>
-
- 
+        <SearchBox placeHolder={'Search Monsters...'} onChangeHandler={onSearchChange} className ='monsterSearch'/>
         <CardList userList={filteredMonsters} somethingelse={'hello'}/>
    
 
