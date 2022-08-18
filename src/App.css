@@ -18,12 +18,10 @@ body {
   text-align: center;
 }
 
-
-.card:hover{
-  transform: scale(1.05);
+.app-title{
+  font-size: 7em;
+  color: #0ccac4;
+  margin-top: 75px;
+  font-family: 'Bigelow Rules'
 }
 
-/* img {
-  max-width:100px;
-  max-height: 100px;
-} */

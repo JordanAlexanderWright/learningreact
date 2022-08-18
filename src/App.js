@@ -1,70 +1,72 @@
-// Converting to a class component
-import {Component} from 'react'
+// importing useState
+
+import {useState, useEffect} from 'react'
 import CardList from './components/card-list/CardList.jsx'
 import SearchBox from './components/search-box/SearchBox.jsx'
-import logo from './logo.svg';
 import './App.css';
-// import './components/search-box/SearchBox.styles.css'
 
-//This has the same functionality as before, but it was converte to a class
-// COmponent already has the render() method, and it palces what I want to render inside of it. The JSX. 
-class App extends Component {
+const App = () => {
+    // This is basically creating individual data sets, like an object, but not in an object. 
 
-  //Inside of the constructor, call super to inherit from the parent class, then instantiate the state. 
-  constructor(){
-    super();
+    console.log('render');
+    const [searchField, setSearchField] = useState(''); // [value, setvalueFunction]
+    const [monsters, setMonsters] = useState([]);
+    const [filteredMonsters, setFilteredMonsters] = useState(monsters)
+    const [stringField, setStringField] = useState('')
 
-    this.state = {
-      monsters: [],
-      searchField: ''       
+
+    // First argument is a callback function, then an array of dependencies (most likely state values or prop values). 
+    // Whenever the vlaues inside the dependancy change, the callback function runs
+    // If the dependancy is left blank, it will never run again after the first render
+    useEffect(() =>{
+            
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(users => setMonsters(users));
+    }, [])
+
+    useEffect(() => {
+        
+        let monsterList = []
+        monsters.forEach(monster => {
+                  
+          let slice = monster.name.slice(0, searchField.length)           
+          if(slice.toLowerCase() === searchField.toLowerCase()){
+            monsterList.push(monster)
+          }      
+      })
+      console.log('YAHOOO')
+      setFilteredMonsters(monsterList)
+    
+    }, [monsters, searchField])
+  
+    const onSearchChange = (event) => {
+      let searchFieldString = event.target.value.toLowerCase();
+      setSearchField(searchFieldString);
     }
 
-  }
+    console.log('monsters', filteredMonsters);
 
-  // Component Did Mount runs the very first time the component mounts. Meaning if I want something like, data from an api, to display on my page
-  // I can place the functionality under this method and it will run. 
-  componentDidMount(){
-     
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
-    .then(users => this.setState(() => {
-      return {monsters: users}
-    })
-    );
+    const onStringChange = (e) =>{
+      setStringField(e.target.value)
+    }
+    return(
+        <div className='App'>
+            <h1 className='app=title'>Monsters Rolodex</h1>
 
-  }
-
-  onSearchChange = (event) => {
-    this.setState({ searchField: event.target.value });
-  };
-
-  returnMonsters = () => {
-
-    let monsterList = []
-    this.state.monsters.forEach(monster => {
-  
-      let slice = monster.name.slice(0, this.state.searchField.length)           
-      if(slice.toLowerCase() === this.state.searchField.toLowerCase()){
-        monsterList.push(monster)
-      }
-    })
-
-    return monsterList
-}
-
-
-  render() {
-    const {returnMonsters, onSearchChange} = this;
-    let filteredMonsters = returnMonsters()
-    
-    return (
-      <div className="App">      
-        <h1>Monsters Rolodex</h1>
-        <SearchBox placeHolder={'Search Monsters...'} onChangeHandler={onSearchChange} className ='monstersSearchBox'/>
-        <CardList userList={filteredMonsters} somethingelse={'hello'}/>
-      </div>
-    );
-  }
+            <SearchBox
+                className='monsters-search-box'
+                onChangeHandler={onSearchChange}
+                placeHolder='search monsters'
+            />
+            <hr></hr>
+            <SearchBox 
+              placeHolder = 'idkk'
+              onChangeHandler={onStringChange}
+            />
+            <CardList userList={filteredMonsters}/>
+        </div>
+    )
 }
 
 export default App;
