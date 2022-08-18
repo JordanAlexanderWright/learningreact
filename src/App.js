@@ -8,12 +8,10 @@ import './App.css';
 const App = () => {
     // This is basically creating individual data sets, like an object, but not in an object. 
 
-    console.log('render');
+
     const [searchField, setSearchField] = useState(''); // [value, setvalueFunction]
     const [monsters, setMonsters] = useState([]);
     const [filteredMonsters, setFilteredMonsters] = useState(monsters)
-    const [stringField, setStringField] = useState('')
-
 
     // First argument is a callback function, then an array of dependencies (most likely state values or prop values). 
     // Whenever the vlaues inside the dependancy change, the callback function runs
@@ -35,7 +33,7 @@ const App = () => {
             monsterList.push(monster)
           }      
       })
-      console.log('YAHOOO')
+
       setFilteredMonsters(monsterList)
     
     }, [monsters, searchField])
@@ -45,11 +43,7 @@ const App = () => {
       setSearchField(searchFieldString);
     }
 
-    console.log('monsters', filteredMonsters);
 
-    const onStringChange = (e) =>{
-      setStringField(e.target.value)
-    }
     return(
         <div className='App'>
             <h1 className='app=title'>Monsters Rolodex</h1>
@@ -59,11 +53,8 @@ const App = () => {
                 onChangeHandler={onSearchChange}
                 placeHolder='search monsters'
             />
-            <hr></hr>
-            <SearchBox 
-              placeHolder = 'idkk'
-              onChangeHandler={onStringChange}
-            />
+           
+         
             <CardList userList={filteredMonsters}/>
         </div>
     )

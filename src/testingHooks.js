@@ -3,16 +3,16 @@
 import {useState} from 'react'
 import CardList from './components/card-list/CardList.jsx'
 import SearchBox from './components/search-box/SearchBox.jsx'
-import logo from './logo.svg';
 import './App.css';
 
 const App = () => {
     // This is basically creating individual data sets, like an object, but not in an object. 
-    const [searchField, setSearchField] = useState(''); // [value, setvalue]
+    const [searchField, setSearchField] = useState(''); // [value, setvalueFunction]
 
     const onSearchChange = (event) => {
         const searchFieldString = event.target.value.toLowerCase();
-        setSearchField(searchFieldString)
+        setSearchField(searchFieldString);
+        console.log(searchField);
     }
 
     return(
@@ -24,6 +24,8 @@ const App = () => {
                 onChangeHandler={onSearchChange}
                 placeHolder='search monsters'
             />
+
+            <CardList />
         </div>
     )
 }
